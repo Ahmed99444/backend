@@ -93,6 +93,20 @@ body {
 .katzar{
   width: 20%;
 }
+.creditcards{
+  display: flexbox;
+}
+#ccno{
+  width: 50%;
+}
+.images{
+  display: flex;
+  justify-content: space-between;
+}
+.images img {
+  width: 10rem;
+  height: 3rem;
+}
 p {
   margin-bottom: 1rem;
   max-width: 40em;
