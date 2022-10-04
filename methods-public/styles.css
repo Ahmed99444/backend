@@ -99,6 +99,9 @@ body {
 #ccno{
   width: 50%;
 }
+#myid{
+  width: 50%;
+}
 .images{
   display: flex;
   justify-content: space-between;
