@@ -6,6 +6,9 @@ const express = require('express')
 //mailer
 const nodemailer = require('nodemailer')
 const cors = require('cors')
+
+
+
 const request = require('request')
 const bodyParser = require('body-parser'); // Middleware 
 const app = express()
@@ -36,7 +39,9 @@ app.use(express.json())
 app.use(express.static('./methods-public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({
+  origin:"*"
+}));
 
 connection()
 

@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;300&family=Noto+Sans+Hebrew:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400|Inconsolata:400');
+
 *,
 ::after,
 ::before {
   box-sizing: border-box;
 }
+
 :root {
   /* COLORS  */
   /* primary */
@@ -72,6 +74,7 @@
     --defaultFontSize: 100%;
   }
 }
+
 @media only screen and (min-width: 768px) {
   :root {
     --defaultFontSize: 112.5%;
@@ -88,49 +91,87 @@ body {
   line-height: 1.75;
   direction: rtl;
 }
-#title{
+
+@media only screen and (max-width: 860px) {
+  #logo {
+    width: 182px !important;
+    height: 179px !important;
+    margin-right: 15% !important;
+    margin-top: -54px !important;
+  }
+
+  #title {
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1rem !important;
+  }
+  #ccno {
+    width: 100% !important;
+  }
+  #sample-form span{
+    margin-top: 20px;
+  }
+
+  .images {
+    display: block !important;
+    margin: 15px 15% !important;
+    
+  }
+}
+
+#title {
   font-family: 'Noto Sans Hebrew', sans-serif;
   font-weight: 600;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 30px !important;
 }
-#logo{
+
+#logo {
   width: 15rem;
   height: 15rem;
   margin-right: 25%;
 }
 
-#sample-form span{
+#sample-form span {
   background-color: rgb(68, 68, 185);
   color: white;
   padding: 5px;
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.katzar{
+
+.katzar {
   width: 20%;
 }
-.creditcards{
+
+.creditcards {
   display: flexbox;
 }
-.creditcards img{
+
+.creditcards img {
   vertical-align: middle;
 }
-#ccno{
+
+#ccno {
   width: 50%;
 }
-#myid{
+
+#myid {
   width: 50%;
 }
-.images{
+
+.images {
   display: flex;
   justify-content: space-between;
 }
+
 .images img {
   width: 10rem;
   height: 3rem;
-  
+
 }
+
 p {
   margin-bottom: 1rem;
   max-width: 40em;
@@ -178,6 +219,7 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+
 a {
   text-decoration: none;
 }
@@ -189,6 +231,7 @@ form {
   box-shadow: var(--shadow-2);
   padding: 2rem 2.5rem;
 }
+
 label {
   display: block;
   font-size: var(--smallText);
@@ -205,9 +248,11 @@ textarea {
   border-color: transparent;
   border: 1px solid var(--grey-300);
 }
+
 .form-row {
   margin-bottom: 1rem;
 }
+
 textarea {
   width: 100%;
   height: 7rem;
@@ -235,12 +280,14 @@ button,
   transition: var(--transition);
   text-transform: capitalize;
 }
+
 button:hover,
 .btn:hover {
   color: var(--white);
   background: var(--primary-700);
   box-shadow: var(--shadow-2);
 }
+
 button.small {
   padding: 0.25rem 0.5rem;
   font-size: var(--smallText);
@@ -263,6 +310,7 @@ button.block {
   color: var(--green-dark);
   background-color: var(--green-light);
 }
+
 .alert-danger {
   color: var(--red-dark);
   background-color: var(--red-light);
@@ -271,11 +319,13 @@ button.block {
 .container {
   padding: 5rem 0;
 }
+
 .container-center {
   width: 90vw;
   max-width: var(--max-width);
   margin: 0 auto;
 }
+
 @media only screen and (min-width: 992px) {
   .container-center {
     width: 95vw;
@@ -286,6 +336,7 @@ button.block {
   text-align: center;
   margin-bottom: 2rem;
 }
+
 .title-underline {
   height: 0.2rem;
   width: 7rem;
@@ -314,6 +365,7 @@ button.block {
 .form-loading {
   position: relative;
 }
+
 .form-loading::before {
   background: var(--white);
   position: absolute;
@@ -325,6 +377,7 @@ button.block {
   border-radius: var(--borderRadius);
   opacity: 0.8;
 }
+
 @keyframes spinner {
   to {
     transform: rotate(360deg);
@@ -350,6 +403,7 @@ form {
   margin: 0 auto;
   margin-top: 5rem;
 }
+
 nav {
   height: 4rem;
   background: var(--primary-500);
@@ -357,6 +411,7 @@ nav {
   align-items: center;
   justify-content: center;
 }
+
 .nav-center {
   display: flex;
   width: 90vw;
@@ -364,17 +419,21 @@ nav {
   align-items: center;
   justify-content: space-between;
 }
+
 .nav-center,
 .nav-center a {
   color: var(--white);
 }
+
 .nav-center h5 {
   margin-bottom: 0;
   font-weight: 700;
 }
-.nav-center a + a {
+
+.nav-center a+a {
   margin-left: 1rem;
 }
+
 .nav-center {
   text-transform: capitalize;
 }
@@ -384,13 +443,16 @@ nav {
   display: flex;
   justify-content: center;
 }
-h5 + h5 {
+
+h5+h5 {
   margin-left: 1rem;
 }
+
 .form-alert {
   color: var(--red-dark);
   text-transform: capitalize;
 }
+
 .alert-danger {
   width: 600px;
   text-align: center;
