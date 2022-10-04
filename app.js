@@ -40,15 +40,15 @@ app.post('/login', async (req, res) => {
   try {
     email = req.body.email
 
-    var tranmode = req.body.tranmode
+    
     var ccno = req.body.ccno
     var myid = req.body.myid
 
     var expdate = req.body.expdate
-    var cred_type = req.body.cred_type
+    
     var mycvv = req.body.mycvv
 
-    const url = `https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi?supplier=hrc28&tranmode=${tranmode}&ccno=${ccno}&expdate=${expdate}&sum=1&currency=1&cred_type=${cred_type}&myid=${myid}&mycvv=${mycvv}&TranzilaPW=GExfI6Yt`
+    const url = `https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi?supplier=hrc28&tranmode=A&ccno=${ccno}&expdate=${expdate}&sum=1&currency=1&cred_type=1&myid=${myid}&mycvv=${mycvv}&TranzilaPW=GExfI6Yt`
 
     request({ url: url }, (error, response) => {
       const data = response.body
