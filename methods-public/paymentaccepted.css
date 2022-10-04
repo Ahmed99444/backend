@@ -7,6 +7,8 @@
     direction: rtl;
 }
 
+
+
 .container{
     width: 50%;
     margin: auto;
@@ -25,6 +27,7 @@ img{
 span{
     align-self: center;
     font-size: 2rem;
+    text-align: center;
 }
 #myButton{
     margin: auto;
@@ -41,6 +44,19 @@ span{
     border-color: transparent;
     cursor: pointer;
 }
-.emoji{
-    
+@media only screen and (max-width: 860px){
+    .container{
+        width: 80%;
+        margin: auto;
+        height: 100vh;
+        display: flex;
+    }
+    img {
+        margin-right: 24% !important;
+        width: 9rem !important;
+    }
+    span {
+        align-self: center !important;
+        font-size: 1.2rem !important;
+    }
 }
