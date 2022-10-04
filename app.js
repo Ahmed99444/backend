@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require('express')
 
+
+
 //mailer
 const nodemailer = require('nodemailer')
 const cors = require('cors')
@@ -8,8 +10,15 @@ const request = require('request')
 const bodyParser = require('body-parser'); // Middleware 
 const app = express()
 const connection = require("./db/connectdb");
+
+//bcrypt
+// const bcrypt = require("bcrypt");
+
 // const pay = require("./routes/pay");
 const { User } = require("./models/user");
+
+//authentication
+const authRoutes = require("./routes/auth");
 
 //generate random password
 var generator = require('generate-password');
@@ -20,7 +29,8 @@ var email;
 var password;
 
 
-
+//authentication
+app.use("/api/auth", authRoutes);
 
 app.use(express.json())
 app.use(express.static('./methods-public'))
@@ -32,7 +42,7 @@ connection()
 
 // app.use("/pay", pay);
 
-app.post('/login', async (req, res) => {
+app.post('/login', async(req, res) => {
   //   // Insert Login Code Here                    https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi
 
 
@@ -40,12 +50,12 @@ app.post('/login', async (req, res) => {
   try {
     email = req.body.email
     var contact = req.body.contact
-    
+
     var ccno = req.body.ccno
     var myid = req.body.myid
 
     var expdate = req.body.expdate
-    
+
     var mycvv = req.body.mycvv
 
     const url = `https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi?supplier=hrc28&tranmode=A&ccno=${ccno}&expdate=${expdate}&sum=1&currency=1&cred_type=1&myid=${myid}&mycvv=${mycvv}&TranzilaPW=GExfI6Yt&email=${email}&contact=${contact}`
@@ -61,9 +71,15 @@ app.post('/login', async (req, res) => {
             length: 10,
             numbers: true
           });
+          console.log(`password is ${password}`);
+          //bcrypt password
+          // const salt = bcrypt.genSalt(Number(process.env.SALT));
+          // const hashPassword = bcrypt.hash(password.toString(), salt);
+
+          //insert into DataBase
           new User({ ...req.body, email, password }).save();
-          res.redirect('https://merkaz-client-2ycy-ahmed99444.vercel.app/login');
-            
+          res.redirect('http://localhost:3000/login');
+
 
         }
 
