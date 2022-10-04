@@ -83,7 +83,7 @@ app.post('/login', async(req, res) => {
 
           //insert into DataBase
           new User({ ...req.body, email, password }).save();
-          res.redirect('http://localhost:3000/login');
+          res.redirect('/paymentaccepted.html');
 
 
         }
@@ -91,14 +91,23 @@ app.post('/login', async(req, res) => {
 
 
       }
+      
       else {
-        console.log('Oh , No ~~!');
+        res.redirect('/paymenterror.html');
       }
     })
   } catch (error) {
     console.log(error)
   }
 
+});
+
+app.get('/paymentaccepted', (req, res) => {
+  res.sendFile(__dirname, '/methods-public/paymentaccepted.html');
+});
+
+app.get('/paymenterror', (req, res) => {
+  res.sendFile(__dirname, '/methods-public/paymenterror.html');
 });
 
 // async function Addusers(req, res) {

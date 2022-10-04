@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    direction: rtl;
+}
+
+.container{
+    width: 50%;
+    margin: auto;
+    height: 100vh;
+    display: flex;
+}
+.content{
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+}
+img{
+    margin-right: 30%;
+    width: 20rem;
+}
+span{
+    align-self: center;
+    font-size: 2rem;
+}
+#myButton{
+    margin: auto;
+    background-color: green;
+    width: 8rem;
+    height: 3rem;
+    padding: auto;
+    display: flex;
+    text-decoration: none;
+}
+#myButton button{
+    margin: auto;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+.emoji{
+    
+}
