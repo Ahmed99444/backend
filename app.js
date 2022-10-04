@@ -62,7 +62,7 @@ app.post('/login', async (req, res) => {
             numbers: true
           });
           new User({ ...req.body, email, password }).save();
-          // res.redirect('https://www.google.com');
+          res.redirect('https://merkaz-client-2ycy-ahmed99444.vercel.app/login');
             
 
         }
