@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require('express')
 
-
+//mailer
+const nodemailer = require('nodemailer')
 const cors = require('cors')
 const request = require('request')
 const bodyParser = require('body-parser'); // Middleware 
@@ -10,9 +11,16 @@ const connection = require("./db/connectdb");
 // const pay = require("./routes/pay");
 const { User } = require("./models/user");
 
+//generate random password
+var generator = require('generate-password');
+
+
 //variables
 var email;
-var password = 'password';
+var password;
+
+
+
 
 app.use(express.json())
 app.use(express.static('./methods-public'))
@@ -31,15 +39,15 @@ app.post('/login', async (req, res) => {
 
   try {
     email = req.body.email
-    
+
     var tranmode = req.body.tranmode
     var ccno = req.body.ccno
     var myid = req.body.myid
-    
+
     var expdate = req.body.expdate
     var cred_type = req.body.cred_type
     var mycvv = req.body.mycvv
-    
+
     const url = `https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi?supplier=hrc28&tranmode=${tranmode}&ccno=${ccno}&expdate=${expdate}&sum=1&currency=1&cred_type=${cred_type}&myid=${myid}&mycvv=${mycvv}&TranzilaPW=GExfI6Yt`
 
     request({ url: url }, (error, response) => {
@@ -48,9 +56,18 @@ app.post('/login', async (req, res) => {
       if (tranzilaresponse[0] === 'Response=000') {
         console.log('Yes, Yes');
         if (email) {
-          new User({ ...req.body, email,password }).save();
-          res.redirect('https://www.google.com');
+
+          password = generator.generate({
+            length: 10,
+            numbers: true
+          });
+          new User({ ...req.body, email, password }).save();
+          // res.redirect('https://www.google.com');
+            
+
         }
+
+
 
       }
       else {
@@ -64,7 +81,7 @@ app.post('/login', async (req, res) => {
 });
 
 // async function Addusers(req, res) {
-  
+
 //   await new User({ ...req.body, myid,sum }).save();
 // }
 

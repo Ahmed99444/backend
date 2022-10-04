@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 	email: { type: String, required: true },
 	// sum: { type: String, required: true },
 	// email: { type: String, required: true },
-	// password: { type: String, required: true },
+	password: { type: String, required: true },
 	timestamp: {type: String, default: now.format("YYYY-MM-DD HH:mm:ss")}
 });
 
