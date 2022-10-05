@@ -36,7 +36,9 @@ router.post("/", async (req, res) => {
 			return res.status(401).send({ message: "Invalid Email or Password" });
 		else {
 			const token = user.generateAuthToken();
+			
 			const time = user.timestamp;
+			console.log(time);
 			res.status(200).send({ data: token, timestamp: time, message: "logged in successfully" });
 		}
 
