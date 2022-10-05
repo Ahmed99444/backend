@@ -2,6 +2,8 @@ const router = require("express").Router();
 const { User } = require("../models/user");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
+var moment = require('moment');
+var now = moment();
 
 router.post("/", async (req, res) => {
 	try {
@@ -15,11 +17,24 @@ router.post("/", async (req, res) => {
 
 		
 		const user = await User.findOne({ email });
-		
-		if (!user)
+		console.log(user);
+		if (!user){
+			
 			return res.status(401).send({ message: "Invalid Email or Password" });
+		}
+			
 
-		
+		//check timestamp
+		const dateThen = new Date(user.timestamp);
+		console.log(dateThen);
+		const dateNow = new Date();
+		console.log(dateNow);
+
+		const differenceDates = dateNow.getTime() - dateThen.getTime();
+			if (differenceDates > 82800000) {
+				await User.findOneAndDelete({email})
+				throw Error()
+			}
 
 		const validPassword = user.password == password ? 'Yes' : 'No'
 
@@ -36,7 +51,7 @@ router.post("/", async (req, res) => {
 
 	} catch (error) {
 		console.log(`Error`);
-		res.status(500).send({ message: "Invalid Email or Password" });
+		res.status(500).send({ message: "Something was wrong" });
 	}
 });
 

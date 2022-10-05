@@ -22,6 +22,7 @@ const { User } = require("./models/user");
 
 //authentication
 const authRoutes = require("./routes/auth");
+const payRoutes = require("./routes/pay");
 
 //generate random password
 var generator = require('generate-password');
@@ -35,6 +36,8 @@ app.set('view engine', 'pug')
 
 //authentication
 app.use("/api/auth", authRoutes);
+app.use("/api/pay", payRoutes);
+
 
 app.use(express.json())
 app.use(express.static('./methods-public'))
@@ -48,62 +51,62 @@ connection()
 
 // app.use("/pay", pay);
 
-app.post('/login', async (req, res) => {
-  //   // Insert Login Code Here                    https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi
+// app.post('/login', async (req, res) => {
+//   //   // Insert Login Code Here                    https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi
 
 
 
-  try {
-    email = req.body.email
+//   try {
+//     email = req.body.email
     
-    var contact = req.body.contact
+//     var contact = req.body.contact
 
-    var ccno = req.body.ccno
-    var myid = req.body.myid
+//     var ccno = req.body.ccno
+//     var myid = req.body.myid
 
-    var expdate = req.body.expdate
+//     var expdate = req.body.expdate
 
-    var mycvv = req.body.mycvv
+//     var mycvv = req.body.mycvv
 
-    const url = `https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi?supplier=hrc28&tranmode=A&ccno=${ccno}&expdate=${expdate}&sum=1&currency=1&cred_type=1&myid=${myid}&mycvv=${mycvv}&TranzilaPW=GExfI6Yt&email=${email}&contact=${contact}`
+//     const url = `https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi?supplier=hrc28&tranmode=A&ccno=${ccno}&expdate=${expdate}&sum=1&currency=1&cred_type=1&myid=${myid}&mycvv=${mycvv}&TranzilaPW=GExfI6Yt&email=${email}&contact=${contact}`
 
-    request({ url: url }, (error, response) => {
-      const data = response.body
-      const tranzilaresponse = data.split('&')
-      if (tranzilaresponse[0] === 'Response=000') {
-        console.log('Yes, Yes');
-        if (email) {
+//     request({ url: url }, (error, response) => {
+//       const data = response.body
+//       const tranzilaresponse = data.split('&')
+//       if (tranzilaresponse[0] === 'Response=000') {
+//         console.log('Yes, Yes');
+//         if (email) {
 
-          password = generator.generate({
-            length: 10,
-            numbers: true
-          });
-          console.log(`password is ${password}`);
-          //bcrypt password
-          // const salt = bcrypt.genSalt(Number(process.env.SALT));
-          // const hashPassword = bcrypt.hash(password.toString(), salt);
+//           password = generator.generate({
+//             length: 10,
+//             numbers: true
+//           });
+//           console.log(`password is ${password}`);
+//           //bcrypt password
+//           // const salt = bcrypt.genSalt(Number(process.env.SALT));
+//           // const hashPassword = bcrypt.hash(password.toString(), salt);
 
-          //insert into DataBase
-          new User({ ...req.body, email, password }).save();
-          main()
-          res.redirect('/paymentaccepted.html');
-
-
-        }
+//           //insert into DataBase
+//           new User({ ...req.body, email, password }).save();
+//           main()
+//           res.redirect('/paymentaccepted.html');
 
 
+//         }
 
-      }
 
-      else {
-        res.redirect('/paymenterror.html');
-      }
-    })
-  } catch (error) {
-    console.log(error)
-  }
 
-});
+//       }
+
+//       else {
+//         res.redirect('/paymenterror.html');
+//       }
+//     })
+//   } catch (error) {
+//     console.log(error)
+//   }
+
+// });
 
 //send mail
 async function main() {
