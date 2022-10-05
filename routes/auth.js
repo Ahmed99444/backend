@@ -10,28 +10,20 @@ router.post("/", async (req, res) => {
 		// console.log(req.query);
 		const email = req.query.email
 		const password = req.query.password
-		// const {email,password} = emailandpassword
-		// console.log(email, password);
-		// if (!emailandpassword){
-		// 	console.log(`Error`);
-		// 	return res.status(400).send({ message: error.details[0].message });
-		// }
+		
 
 
-		console.log(`line 19`);
+		
 		const user = await User.findOne({ email });
-		// console.log(user);
+		
 		if (!user)
 			return res.status(401).send({ message: "Invalid Email or Password" });
 
-		// const validPassword = await bcrypt.compare(
-		// 	req.body.password,
-		// 	user.password
-		// );
+		
 
 		const validPassword = user.password == password ? 'Yes' : 'No'
 
-		// console.log(validPassword)
+		
 		if (validPassword == 'No')
 			return res.status(401).send({ message: "Invalid Email or Password" });
 		else {
