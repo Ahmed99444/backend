@@ -5,12 +5,22 @@ const Joi = require("joi");
 
 router.post("/", async (req, res) => {
 	try {
-        console.log(`from routes/auth`);
-		const { error } = validate(req.body);
-		if (error)
-			return res.status(400).send({ message: error.details[0].message });
 
-		const user = await User.findOne({ email: req.body.email });
+		console.log(`line 9`);
+		console.log(req.query);
+		const email = req.query.email
+		const password = req.query.password
+		// const {email,password} = emailandpassword
+		console.log(email, password);
+		// if (!emailandpassword){
+		// 	console.log(`Error`);
+		// 	return res.status(400).send({ message: error.details[0].message });
+		// }
+
+
+		console.log(`line 19`);
+		const user = await User.findOne({ email });
+		console.log(user);
 		if (!user)
 			return res.status(401).send({ message: "Invalid Email or Password" });
 
@@ -19,19 +29,20 @@ router.post("/", async (req, res) => {
 		// 	user.password
 		// );
 
-        const validPassword = await compare(
-			req.body.password,
-			user.password
-		);
-        console.log(validPassword)
-		if (!validPassword)
-			return res.status(401).send({ message: "Invalid Email or Password" });
+		const validPassword = user.password == password ? 'Yes' : 'No'
 
-		const token = user.generateAuthToken();
-		const time = user.timestamp;
-		res.status(200).send({ data: token,timestamp: time, message: "logged in successfully" });
+		console.log(validPassword)
+		if (validPassword == 'No')
+			return res.status(401).send({ message: "Invalid Email or Password" });
+		else {
+			const token = user.generateAuthToken();
+			const time = user.timestamp;
+			res.status(200).send({ data: token, timestamp: time, message: "logged in successfully" });
+		}
+
 	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" });
+		console.log(`Error`);
+		res.status(500).send({ message: "!Email/Password is incorrect" });
 	}
 });
 
@@ -44,3 +55,5 @@ const validate = (data) => {
 };
 
 module.exports = router;
+
+
