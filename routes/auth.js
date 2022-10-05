@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
 		console.log(user);
 		if (!user){
 			
-			return res.status(401).send({ message: "Invalid Email or Password" });
+			return res.status(401).send({ message: "Email not found" });
 		}
 			
 
