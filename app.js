@@ -31,6 +31,7 @@ var generator = require('generate-password');
 var email;
 var password;
 
+app.set('view engine', 'pug')
 
 //authentication
 app.use("/api/auth", authRoutes);
