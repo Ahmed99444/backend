@@ -24,9 +24,6 @@ const { User } = require("./models/user");
 const authRoutes = require("./routes/auth");
 const payRoutes = require("./routes/pay");
 
-//generate random password
-var generator = require('generate-password');
-
 
 //variables
 var email;
@@ -40,7 +37,7 @@ app.use("/api/pay", payRoutes);
 
 
 app.use(express.json())
-app.use(express.static('./methods-public'))
+// app.use(express.static('./methods-public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
@@ -135,13 +132,9 @@ async function main() {
   }
 }
 
-app.get('/paymentaccepted', (req, res) => {
-  res.sendFile(__dirname, '/methods-public/paymentaccepted.html');
-});
 
-app.get('/paymenterror', (req, res) => {
-  res.sendFile(__dirname, '/methods-public/paymenterror.html');
-});
+
+
 
 // async function Addusers(req, res) {
 

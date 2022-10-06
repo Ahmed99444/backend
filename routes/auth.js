@@ -32,8 +32,10 @@ router.post("/", async (req, res) => {
 
 		const differenceDates = dateNow.getTime() - dateThen.getTime();
 			if (differenceDates > 82800000) {
-				await User.findOneAndDelete({email})
-				throw Error()
+				// await User.findOneAndDelete({email})
+				console.log(`Will remove token`);
+				return res.send({message: "remove",reason:'Invalid Email or Password'});
+				
 			}
 
 		const validPassword = user.password == password ? 'Yes' : 'No'
@@ -46,7 +48,8 @@ router.post("/", async (req, res) => {
 			
 			const time = user.timestamp;
 			console.log(time);
-			res.status(200).send({ data: token, timestamp: time, message: "logged in successfully" });
+			console.log('He can access');
+			res.status(200).send({ status:'200',data: `Bearer ${token}`, timestamp: time, message: "logged in successfully" });
 		}
 
 	} catch (error) {
