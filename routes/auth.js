@@ -20,41 +20,44 @@ router.post("/", async (req, res) => {
 		console.log(user);
 		if (!user){
 			
-			return res.status(401).send({ message: "Email not found" });
+			return res.send(501).send({ message: "Email not found" });
 		}
 			
 
 		//check timestamp
 		const dateThen = new Date(user.timestamp);
-		console.log(dateThen);
+		
 		const dateNow = new Date();
-		console.log(dateNow);
+		
 
 		const differenceDates = dateNow.getTime() - dateThen.getTime();
+		console.log(differenceDates);
 			if (differenceDates > 82800000) {
 				// await User.findOneAndDelete({email})
 				console.log(`Will remove token`);
-				return res.send({message: "remove",reason:'Invalid Email or Password'});
+				return res.status(404).send({message: "Email not found"});
 				
 			}
+			
 
 		const validPassword = user.password == password ? 'Yes' : 'No'
-
+		
 		
 		if (validPassword == 'No')
 			return res.status(401).send({ message: "Invalid Email or Password" });
 		else {
+			
 			const token = user.generateAuthToken();
 			
 			const time = user.timestamp;
 			console.log(time);
 			console.log('He can access');
-			res.status(200).send({ status:'200',data: `Bearer ${token}`, timestamp: time, message: "logged in successfully" });
+			 return res.status(200).send({ data: `Bearer ${token}`, timestamp: time, message: "logged in successfully" });
 		}
 
 	} catch (error) {
 		console.log(`Error`);
-		res.status(500).send({ message: "Something was wrong" });
+		 return res.status(500).send({ message: "Something was wrong" });
 	}
 });
 

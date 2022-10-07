@@ -18,7 +18,14 @@ router.post("/", async (req, res) => {
         const expdate = req.query.expdate
         const ccv = req.query.ccv
 
-        console.log(`email ${email},contact ${contact},ccno ${ccno},myid ${myid},expdate ${expdate},ccv ${ccv}`)
+        //Checking if user Exist or not 
+        const user = await User.findOne({ email });
+
+        if(user){
+            return res.status(409).json({message:'User Already Exist'})
+        }
+        // console.log(`email ${email},contact ${contact},ccno ${ccno},myid ${myid},expdate ${expdate},ccv ${ccv}`)
+        
         const url = `https://secure5.tranzila.com/cgi-bin/tranzila71u.cgi?supplier=hrc28&tranmode=A&ccno=${ccno}&expdate=${expdate}&sum=1&currency=1&cred_type=1&myid=${myid}&mycvv=${ccv}&TranzilaPW=GExfI6Yt&email=${email}&contact=${contact}`
 
         request({ url: url }, (error, response) => {
@@ -33,14 +40,11 @@ router.post("/", async (req, res) => {
                         numbers: true
                     });
                     console.log(`password is ${password}`);
-                    //bcrypt password
-                    // const salt = bcrypt.genSalt(Number(process.env.SALT));
-                    // const hashPassword = bcrypt.hash(password.toString(), salt);
-
+                    
                     //insert into DataBase
                     new User({ ...req.body, email, password }).save();
 
-                    res.status(200).json({message:'Payment Accepted'})
+                    return res.status(200).json({message:'Payment Accepted'})
 
 
                 }
@@ -51,7 +55,7 @@ router.post("/", async (req, res) => {
 
             else {
                 console.log(`Payment didn't accepted`);
-                res.status(404).json({message:'אחד או יותר מהפרטים אינם נכונים'})
+                return res.status(404).json({message:'אחד או יותר מהפרטים אינם נכונים'})
             }
         })
     }
